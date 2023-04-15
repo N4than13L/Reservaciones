@@ -17,7 +17,7 @@ class PruebasController extends Controller
     {
         $bookings = Booking::all();
         foreach ($bookings as $booking) {
-            echo "<span></span>" . $booking->user->name;
+            // echo "<span></span>" . $booking->user->name;
             echo "<h1>" . $booking->name . " " . $booking->surname .  "</h1>";
         }
 
