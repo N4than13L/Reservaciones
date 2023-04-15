@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PruebasController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\BookingtypeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +24,8 @@ Route::get('/', function () {
 // rutas de prueba.
 Route::get('/test-orm', [PruebasController::class, 'testOrm']);
 Route::get('/index', [PruebasController::class, 'index']);
+
+// Rutas del A.P.I.
+Route::get('/usuario/pruebas', [UserController::class, 'pruebas']);
+Route::get('/tipo-reserva/pruebas', [BookingtypeController::class, 'pruebas']);
+Route::get('/reserva/pruebas', [BookingController::class, 'pruebas']);
