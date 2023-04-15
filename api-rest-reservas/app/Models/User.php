@@ -45,7 +45,7 @@ class User extends Authenticatable
     ];
 
     // relacion de 1 a muchos 
-    public function booking_type()
+    public function booking()
     {
         return $this->hasMany('App\Booking');
     }

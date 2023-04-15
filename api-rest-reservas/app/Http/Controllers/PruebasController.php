@@ -10,14 +10,16 @@ class PruebasController extends Controller
 {
     public function index()
     {
-        echo "Pruebas controller";
+        echo "<h1>Pruebas controller</h1>";
     }
+
     // probando el ORM.
     public function testOrm()
     {
         $bookings = Booking::all();
+
         foreach ($bookings as $booking) {
-            // echo "<span></span>" . $booking->user->name;
+            // echo "<span></span>" . $booking->users->name;
             echo "<h1>" . $booking->name . " " . $booking->surname .  "</h1>";
         }
 

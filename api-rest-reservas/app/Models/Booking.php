@@ -4,19 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Booking_type;
 
 class Booking extends Model
 {
     protected $table = 'Booking';
 
-    // relacion de muchos a 1 (muchos a 1)  
+    // relacion muchos a 1 e inversa (muchos a 1). 
     public function user()
     {
-        return $this->belongsToMany('App\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
+    // relacion muchos a 1.
     public function booking_type()
     {
-        return $this->belongsToMany('App\Booking_type', 'booking_id');
+        return $this->belongsToMany(Booking_type::class, 'booking_id');
     }
 }

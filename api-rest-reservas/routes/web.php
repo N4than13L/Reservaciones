@@ -17,4 +17,6 @@ Route::get('/', function () {
     return "<h1>Hola mundo</h1>";
 });
 
+// rutas de prueba.
 Route::get('/test-orm', [PruebasController::class, 'testOrm']);
+Route::get('/index', [PruebasController::class, 'index']);
