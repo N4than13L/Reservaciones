@@ -25,7 +25,11 @@ Route::get('/', function () {
 Route::get('/test-orm', [PruebasController::class, 'testOrm']);
 Route::get('/index', [PruebasController::class, 'index']);
 
-// Rutas del A.P.I.
+// Rutas del A.P.I. rutas de prueba.
 Route::get('/usuario/pruebas', [UserController::class, 'pruebas']);
 Route::get('/tipo-reserva/pruebas', [BookingtypeController::class, 'pruebas']);
 Route::get('/reserva/pruebas', [BookingController::class, 'pruebas']);
+
+// Rutas del controlador de usuarios.
+Route::post('/api/register', [UserController::class, 'register']);
+Route::post('/api/login', [UserController::class, 'login']);
