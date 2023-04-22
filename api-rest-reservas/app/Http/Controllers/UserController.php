@@ -79,10 +79,49 @@ class UserController extends Controller
     {
         $jwtAuth = new JwtAuth();
 
-        $email = 'natharevolution@gmail.com';
-        $password = '5550123';
-        $pwd = $pwd = hash('sha256', $password);
+        // recoger datos por post.
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+        $params_array = json_decode($json, true);
 
-        return $jwtAuth->signup($email, $pwd);
+        // validar datos.
+        $validate = Validator::make($params_array, [
+            "email" => "required|email",
+            "password" => "required"
+        ]);
+
+        if ($validate->fails()) {
+            $signup = array(
+                "status" => "error",
+                "code" => 404,
+                "message" => "Error no te has podido logear",
+                "error" => $validate->errors()
+            );
+        } else {
+            // cifrar la contrasena.
+            $pwd = hash('sha256', $params->password);
+
+            // devolver token o datos.
+            $signup = $jwtAuth->signup($params->email, $pwd);
+            if (!empty($params->getToken)) {
+                $signup = $jwtAuth->signup($params->email, $pwd, true);
+            }
+        }
+        return response()->json($signup);
+    }
+
+    public function update(Request $request)
+    {
+        // recoger el token.
+        $token = $request->header('Authorization');
+        $jwtAuth = new JwtAuth();
+        $checkToken = $jwtAuth->checkToken($token);
+
+        if ($checkToken) {
+            echo "<h1>Login correcto</h1>";
+        } else {
+            echo "<h1>Login incorrecto</h1>";
+        }
+        die();
     }
 }

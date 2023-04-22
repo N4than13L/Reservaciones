@@ -33,3 +33,5 @@ Route::get('/reserva/pruebas', [BookingController::class, 'pruebas']);
 // Rutas del controlador de usuarios.
 Route::post('/api/register', [UserController::class, 'register']);
 Route::post('/api/login', [UserController::class, 'login']);
+
+Route::post('/api/user/update', [UserController::class, 'update']);

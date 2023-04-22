@@ -2,10 +2,7 @@
 
 namespace App\Helpers;
 
-// require_once('vendor/autoload.php');
-
-use App\Firebase\JWT\JWT;
-use App\Firebase\JWT\Key;
+use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
@@ -16,7 +13,7 @@ class JwtAuth
 
     public function __construct()
     {
-        $this->key = "esto es una llave secreta-1234";
+        $this->key = "esto_es_una_llave_secreta-1234";
     }
     public function signup($email, $password, $getToken = null)
     {
@@ -45,7 +42,7 @@ class JwtAuth
 
             $jwt = JWT::encode($token, $this->key, 'HS256');
 
-            $decoded = JWT::decode($token, $this->key, ['HS256']);
+            $decoded = JWT::decode($jwt, $this->key, ['HS256']);
 
             if (is_null($getToken)) {
                 $data =  $jwt;
@@ -59,7 +56,32 @@ class JwtAuth
             );
         }
         // devolver datos decodificados o el token, en fucncion de un parametro.
-
         return $data;
+    }
+
+    public function checkToken($jwt, $getIdentity = false)
+    {
+        $auth = false;
+
+        try {
+            // remplazar las comillas por nada.
+            $jwt = str_replace('"', '', $jwt);
+            $decoded = JWT::decode($jwt, $this->key, ['HS256']);
+        } catch (\UnexpectedValueException $e) {
+            $auth = false;
+        } catch (\DomainException $do) {
+            $auth = false;
+        }
+        if (!empty($decoded) && is_object($decoded) && isset($decoded->sub)) {
+            $auth = true;
+        } else {
+            $auth = false;
+        }
+
+        if ($getIdentity) {
+            return $decoded;
+        }
+
+        return $auth;
     }
 }
