@@ -22,7 +22,7 @@ class ApiAuthMiddleware
         $jwtAuth = new JwtAuth();
         $checkToken = $jwtAuth->checkToken($token);
 
-        if ($checkToken && !empty($params_array)) {
+        if ($checkToken) {
             return $next($request);
         } else {
             $data = array(
