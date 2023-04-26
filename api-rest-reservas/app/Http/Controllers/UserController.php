@@ -123,7 +123,7 @@ class UserController extends Controller
         $json = $request->input('json', null);
         $params_array = json_decode($json, true);
 
-        if ($checkToken) {
+        if ($checkToken && !empty($params_array)) {
 
             // sacar datos del usuario identificado.
             $user = $jwtAuth->checkToken($token, true);
@@ -160,6 +160,17 @@ class UserController extends Controller
                 "message" => "usuario no identificado.",
             );
         }
+
+        return response()->json($data, $data['code']);
+    }
+
+    public function upload(Request $request)
+    {
+        $data = array(
+            "status" => "succes",
+            "code" => 200,
+            "message" => "funcion de subir imagenes.",
+        );
 
         return response()->json($data, $data['code']);
     }
