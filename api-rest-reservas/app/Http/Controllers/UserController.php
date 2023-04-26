@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Helpers\JwtAuth;
-use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -136,14 +135,6 @@ class UserController extends Controller
                 'email' => 'required|email|unique:users,' . $user->sub
             ]);
 
-            if ($validate->fails()) {
-                $data = array(
-                    "status" => "error",
-                    "code" => 404,
-                    "message" => "Error no te has podido logear",
-                    "error" => $validate->errors()
-                );
-            }
             // quitar los campos no actualizables.
             unset($params_array['id']);
             unset($params_array['role']);
