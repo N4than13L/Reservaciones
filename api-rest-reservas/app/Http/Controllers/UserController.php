@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 
 use App\Models\User;
 use App\Helpers\JwtAuth;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -196,6 +197,49 @@ class UserController extends Controller
                 "code" => 200,
                 "status" => "sucess",
                 "image" => $image_name,
+            );
+        }
+
+        return response()->json($data, $data['code']);
+    }
+
+    public function getimage($filename)
+    {
+        // recoger el archivo en el disco.
+        $isset = Storage::disk('users')->exists($filename);
+
+        /*
+         conprobar si existe y 
+         devolver un resultado (positivo o negativo).
+        */
+        if ($isset) {
+            $file = Storage::disk('users')->get($filename);
+            return new Response($file, 200);
+        } else {
+            $data = array(
+                "status" => "error",
+                "code" => 404,
+                "message" => "imagen no existe.",
+            );
+            return response()->json($data, $data['code']);
+        }
+    }
+
+    public function profile($id)
+    {
+        $user = User::find($id);
+
+        if (is_object($user)) {
+            $data = array(
+                "status" => "sucess",
+                "code" => 200,
+                "user" => $user,
+            );
+        } else {
+            $data = array(
+                "status" => "error",
+                "code" => 404,
+                "message" => "usuario no esta registrado"
             );
         }
 
