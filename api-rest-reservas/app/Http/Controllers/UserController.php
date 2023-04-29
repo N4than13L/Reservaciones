@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 use App\Models\User;
 use App\Helpers\JwtAuth;
 
@@ -166,11 +169,35 @@ class UserController extends Controller
 
     public function upload(Request $request)
     {
-        $data = array(
-            "status" => "succes",
-            "code" => 200,
-            "message" => "funcion de subir imagenes.",
-        );
+        // recoger los datos de la peticion.
+        $image = $request->file('file0');
+
+        // vaidacion imagenes.
+        $validate = Validator::make($request->all(), [
+            'file0' => 'required|image|mimes:jpg,jpeg,png.gif'
+        ]);
+
+        // comprobar si la imagen no me llega en la peticion.
+        if (!$image || $validate->fails()) {
+            $data = array(
+                "status" => "error",
+                "code" => 404,
+                "message" => "error al subir imagenes.",
+            );
+        } else {
+            $image_name = time() . $image->getClientOriginalName();
+            Storage::disk('users')->put($image_name, File::get($image));
+
+            /* 
+            Guardar la imagen y 
+            devolver la imagen en texto plano en la peticion.
+            */
+            $data = array(
+                "code" => 200,
+                "status" => "sucess",
+                "image" => $image_name,
+            );
+        }
 
         return response()->json($data, $data['code']);
     }
