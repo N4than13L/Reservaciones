@@ -39,5 +39,8 @@ Route::get('/api/user/avatar/{filename}', [UserController::class, 'getimage']);
 Route::get('/api/user/profile/{id}', [UserController::class, 'profile']);
 
 
-// parte de categorias.
+// parte del controlador del tipo de reservas.
 Route::resource('/api/booking_type', BookingtypeController::class);
+
+// rutas de controlador de reservas.
+Route::resource('/api/booking', BookingController::class);
