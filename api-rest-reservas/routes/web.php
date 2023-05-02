@@ -26,23 +26,18 @@ Route::get('/', function () {
     return "<h1>Hola mundo</h1>";
 });
 
-// rutas de prueba.
-Route::get('/test-orm', [PruebasController::class, 'testOrm']);
-Route::get('/index', [PruebasController::class, 'index']);
-
-// Rutas del A.P.I. rutas de prueba.
-Route::get('/usuario/pruebas', [UserController::class, 'pruebas']);
-Route::get('/tipo-reserva/pruebas', [BookingtypeController::class, 'pruebas']);
-Route::get('/reserva/pruebas', [BookingController::class, 'pruebas']);
-
 // Rutas del controlador de usuarios.
 Route::post('/api/register', [UserController::class, 'register']);
 Route::post('/api/login', [UserController::class, 'login']);
 
-Route::put('/api/user/update', [UserController::class, 'update']);
+Route::put('api/user/update', [UserController::class, 'update']);
 
 Route::post('/api/user/upload', [UserController::class, 'upload'])->middleware(ApiAuthMiddleware::class);
 
 Route::get('/api/user/avatar/{filename}', [UserController::class, 'getimage']);
 
 Route::get('/api/user/profile/{id}', [UserController::class, 'profile']);
+
+
+// parte de categorias.
+Route::resource('/api/booking_type', BookingtypeController::class);
