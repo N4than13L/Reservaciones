@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Booking;
 use App\Models\Booking_type;
+use App\Helpers\JwtAuth;
+use Illuminate\Support\Facades\Validator;
 
 class BookingController extends Controller
 {
@@ -30,6 +32,7 @@ class BookingController extends Controller
         $booking = Booking::find($id);
 
         if (is_object($booking)) {
+            $booking->load('booking_type');
             $data = array(
                 'status' => 'success',
                 'code' => 200,
@@ -44,5 +47,59 @@ class BookingController extends Controller
         }
 
         return response()->json($data, $data['code']);
+    }
+
+    public function store(Request $request)
+    {
+        // recoger datos por post.
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+        $params_array = json_decode($json, true);
+
+        if (!empty($params_array)) {
+            // conseguir usuario identificado.
+            $jwtAuth = new JwtAuth();
+            $token = $request->header('Authorization', null);
+            $user = $jwtAuth->checkToken($token, true);
+
+            // validar datos.
+            $validate = Validator::make($params_array, [
+                'name' => 'required',
+                'surname' => 'required',
+                'bio' => 'required',
+                'user_id' => 'required'
+            ]);
+
+            if ($validate->fails()) {
+                $data = array(
+                    "status" => "error",
+                    "code" => 404,
+                    "message" => "error al guardar reserva",
+                    "error" => $validate->errors()
+                );
+            } else {
+                // guardar reservacion. 
+                $booking = new Booking();
+                $booking->user_id = $user->sub;
+                $booking->booking_id = $params->booking_id;
+
+                // continuar llenando los demas campos
+                /*
+                revisar la tabla de de post y modificar el 
+                booking_id por booking_type_id
+                */
+
+                // devolver resultado.
+            }
+        } else {
+            $data = array(
+                "status" => "error",
+                "code" => 404,
+                "message" => "favor de enviar los datos correctamente",
+
+            );
+        }
+
+        // devolver resultado en formato de json.
     }
 }
