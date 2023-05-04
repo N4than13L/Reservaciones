@@ -8,7 +8,7 @@ use App\Models\Booking;
 
 class Booking_type extends Model
 {
-    protected $table = 'Booking_type';
+    protected $table = 'booking_type';
 
     // relacion de 1 a muchos 
     public function booking()

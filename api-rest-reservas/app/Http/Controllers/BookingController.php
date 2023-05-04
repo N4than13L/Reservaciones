@@ -29,10 +29,9 @@ class BookingController extends Controller
 
     public function show($id)
     {
-        $booking = Booking::find($id);
+        $booking = Booking::find($id)->load('booking_type');
 
         if (is_object($booking)) {
-            $booking->load('booking_type');
             $data = array(
                 'status' => 'success',
                 'code' => 200,
@@ -66,8 +65,7 @@ class BookingController extends Controller
             $validate = Validator::make($params_array, [
                 'name' => 'required',
                 'surname' => 'required',
-                'bio' => 'required',
-                'user_id' => 'required'
+                'booking_type_id' => 'required'
             ]);
 
             if ($validate->fails()) {
@@ -81,25 +79,30 @@ class BookingController extends Controller
                 // guardar reservacion. 
                 $booking = new Booking();
                 $booking->user_id = $user->sub;
-                $booking->booking_id = $params->booking_id;
-
-                // continuar llenando los demas campos
-                /*
-                revisar la tabla de de post y modificar el 
-                booking_id por booking_type_id
-                */
+                $booking->booking_type_id = $params->booking_type_id;
+                $booking->name = $params->name;
+                $booking->surname = $params->surname;
+                $booking->bio = $params->bio;
+                $booking->age = $params->age;
+                $booking->nationality = $params->nationality;
+                $booking->save();
 
                 // devolver resultado.
+                $data = array(
+                    "status" => "success",
+                    "code" => 200,
+                    "booking" => $booking,
+                );
             }
         } else {
             $data = array(
                 "status" => "error",
                 "code" => 404,
                 "message" => "favor de enviar los datos correctamente",
-
             );
         }
 
         // devolver resultado en formato de json.
+        return response()->json($data, $data['code']);
     }
 }

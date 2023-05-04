@@ -9,7 +9,7 @@ use App\Models\Booking_type;
 
 class Booking extends Model
 {
-    protected $table = 'Booking';
+    protected $table = 'booking';
 
     // relacion muchos a 1 e inversa (muchos a 1). 
     public function user()
@@ -20,6 +20,6 @@ class Booking extends Model
     // relacion muchos a 1.
     public function booking_type()
     {
-        return $this->belongsToMany(Booking_type::class, 'booking_id');
+        return $this->belongsTo(Booking_type::class, 'booking_type_id');
     }
 }
