@@ -1,6 +1,8 @@
 CREATE DATABASE IF NOT EXISTS api_rest_reservaciones;
 USE api_rest_reservaciones;
 
+-- drop database api_rest_reservaciones;
+
 CREATE TABLE users(
 id              int(255) auto_increment not null,
 name            varchar(50) NOT NULL,
@@ -27,7 +29,7 @@ CONSTRAINT pk_booking_type PRIMARY KEY(id)
 CREATE TABLE booking(
 id              int(255) auto_increment not null,
 user_id         int(255) not null,
-booking_id     int(255) not null,
+booking_type_id     int(255) not null,
 name           varchar(255),
 surname         varchar(255),
 bio           text,
@@ -37,5 +39,5 @@ created_at      datetime DEFAULT NULL,
 updated_at      datetime DEFAULT NULL,
 CONSTRAINT pk_booking PRIMARY KEY(id),
 CONSTRAINT fk_booking_user FOREIGN KEY(user_id) REFERENCES users(id),
-CONSTRAINT fk_booking_type_bokking FOREIGN KEY(booking_id) REFERENCES booking_type(id)
+CONSTRAINT fk_booking_type_booking FOREIGN KEY(booking_type_id) REFERENCES booking_type(id)
 )ENGINE=InnoDb;
