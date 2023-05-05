@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use App\Models\Booking;
 use App\Models\Booking_type;
 use App\Helpers\JwtAuth;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 
 class BookingController extends Controller
@@ -57,9 +58,7 @@ class BookingController extends Controller
 
         if (!empty($params_array)) {
             // conseguir usuario identificado.
-            $jwtAuth = new JwtAuth();
-            $token = $request->header('Authorization', null);
-            $user = $jwtAuth->checkToken($token, true);
+            $user = $this->getIdentity($request);
 
             // validar datos.
             $validate = Validator::make($params_array, [
@@ -104,5 +103,92 @@ class BookingController extends Controller
 
         // devolver resultado en formato de json.
         return response()->json($data, $data['code']);
+    }
+
+    public function update($id, Request $request)
+    {
+        // comprobar usuario identificado.
+        $user = $this->getIdentity($request);
+
+        // recoger los datos por post.
+        $json = $request->input('json', null);
+        $params_array = json_decode($json, true);
+
+
+        if (!empty($params_array)) {
+            // validar los datos.
+            $validate = Validator::make($params_array, [
+                'name' => "reqiured",
+                'surname' => "required",
+                'booking_type_id' => 'required'
+            ]);
+
+            // eliminar lo que no se actualizara.
+            unset($params_array['id']);
+            unset($params_array['user_id']);
+            unset($params_array['created_at']);
+            unset($params_array['user']);
+
+
+            // actualizar el registro.
+            $booking = Booking::where('id', $id)->update($params_array);
+
+            // devolver un resultado.
+            $data = array(
+                "status" => "success",
+                "code" => 200,
+                "booking" => $booking,
+                "changes" => $params_array,
+            );
+        } else {
+            $data = array(
+                "status" => "error",
+                "code" => 400,
+                "message" => "faltan datos por enviar",
+            );
+        }
+
+        return response()->json($data, $data['code']);
+    }
+
+    public function destroy($id, Request $request)
+    {
+        // comprobar usuario identificado.
+        $user = $this->getIdentity($request);
+
+        // comprobar si existe el registro
+        $booking = Booking::find($id)
+            ->where('user_id', $user->sub)->first();
+
+        // comprobar si no esta nulo el parametro.
+        if (!empty($booking)) {
+            // borrar si existe
+            $booking->delete();
+
+            // devolver algo
+            $data = array(
+                "status" => "success",
+                "code" => 200,
+                "message" => "reserva eliminada exitosamente",
+                "booking" => $booking,
+            );
+        } else {
+            $data = array(
+                "status" => "error",
+                "code" => 400,
+                "message" => "no se encuentra la reservacion a eliminar",
+            );
+        }
+
+        return response()->json($data, $data['code']);
+    }
+
+    private function getIdentity(Request $request)
+    {
+        $jwtAuth = new JwtAuth($request);
+        $token = $request->header('Authorization', null);
+        $user = $jwtAuth->checkToken($token, true);
+
+        return $user;
     }
 }

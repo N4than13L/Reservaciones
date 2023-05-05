@@ -9,6 +9,10 @@ use App\Models\Booking_type;
 
 class Booking extends Model
 {
+    // protected $filable = [
+    //     'name', 'surname', "booking_type_id"
+    // ];
+
     protected $table = 'booking';
 
     // relacion muchos a 1 e inversa (muchos a 1). 
