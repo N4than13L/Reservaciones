@@ -1,14 +1,10 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import { Routing } from "./Routing/Routing";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <h1>Bienvenidos a la app de reservaciones hoteleras</h1>
+      <Routing />
     </>
   );
 }
