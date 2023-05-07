@@ -14,7 +14,13 @@ class BookingController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('api.auth', ['except' => ['index', 'show']]);
+        $this->middleware('api.auth', ['except' =>
+        [
+            'index',
+            'show',
+            'getBoookingsByBookingType',
+            'getBookingsByUser'
+        ]]);
     }
 
     public function index()
@@ -181,6 +187,25 @@ class BookingController extends Controller
         }
 
         return response()->json($data, $data['code']);
+    }
+
+    public function getBoookingsByBookingType($id)
+    {
+        $bookings = Booking::where('booking_type_id', $id)->get();
+        return response()->json([
+            'status' => 'success',
+            'bookings_by_booking_type' => $bookings
+        ], 200);
+    }
+
+    public function getBookingsByUser($id)
+    {
+        $bookings = Booking::where('user_id', $id)->get();
+
+        return response()->json([
+            'status' => 'success',
+            'bookings_by_user' => $bookings
+        ], 200);
     }
 
     private function getIdentity(Request $request)

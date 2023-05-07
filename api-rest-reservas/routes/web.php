@@ -44,3 +44,7 @@ Route::resource('/api/booking_type', BookingtypeController::class);
 
 // rutas de controlador de reservas.
 Route::resource('/api/booking', BookingController::class);
+
+Route::get('/api/user/bookingtype/{id}', [BookingController::class, 'getBookingsByUser']);
+
+Route::get('/api/booking/bookingtype/{id}', [BookingController::class, 'getBoookingsByBookingType']);
