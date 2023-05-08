@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
+import { Route, Routes, BrowserRouter, Navigate, Link } from "react-router-dom";
 import { PublicLayout } from "../components/Layout/Publiclayout/PublicLayout";
 import { Login } from "../components/Users/Login";
 import { Register } from "../components/Users/Register";
@@ -19,6 +19,17 @@ export const Routing = () => {
         <Route path="/reservaciones" element={<Privatelayout />}>
           <Route index element={<Bookings />} />
           <Route path="reservas" element={<Bookings />} />
+          <Route
+            path="*"
+            element={
+              <div className="container text-center mt-3">
+                <h1 className="alert alert-danger">Error 404!</h1>
+                <Link className="btn btn-success" to="/">
+                  ir a inicio
+                </Link>
+              </div>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>
