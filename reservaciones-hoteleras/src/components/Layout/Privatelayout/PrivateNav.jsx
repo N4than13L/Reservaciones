@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Nav = () => {
+export const PrivateNav = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-info">
       <div className="container-fluid">
