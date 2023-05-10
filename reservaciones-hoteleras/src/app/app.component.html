@@ -22,16 +22,21 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav navbar-right">
-        <li class="nav-item">
-          <a class="nav-link active" [routerLink]="['/login']">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/registro']">Registro</a>
-        </li>
-      </ul>
+      <ng-template #isLoggedOut>
+        <ul class="navbar-nav navbar-right">
+          <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/login']">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/registro']">Registro</a>
+          </li>
+        </ul>
+      </ng-template>
 
-      <ul class="navbar-nav navbar-right">
+      <ul
+        class="navbar-nav navbar-right"
+        *ngIf="identity && identity.name; else isLoggedOut"
+      >
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -40,14 +45,18 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Nombre Usuario
+            {{ identity.name + " " + identity.surname }}
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">crear reserva</a></li>
             <li><a class="dropdown-item" href="#">crear tipo de reserva</a></li>
             <li><a class="dropdown-item" href="#">perfil</a></li>
             <li><a class="dropdown-item" href="#">ajustes</a></li>
-            <li><a class="dropdown-item" href="#">cerrar cesion</a></li>
+            <li>
+              <a class="dropdown-item" [routerLink]="['/logout/1']"
+                >cerrar cesion</a
+              >
+            </li>
           </ul>
         </li>
         <li class="nav-item">

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/service/user.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +17,18 @@ export class LoginComponent {
   public token: any;
   public identity: any;
 
-  constructor(public _userService: UserService) {
+  constructor(
+    public _userService: UserService,
+    private _router: Router,
+    private _route: ActivatedRoute
+  ) {
     this.page_title = 'Identificate';
     this.status = '';
     this.user = new User(1, '', '', 'ROLE_USER', '', '', '', '');
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.logout();
+  }
 
   onSubmit(login: any) {
     this._userService.signup(this.user).subscribe(
@@ -36,14 +43,19 @@ export class LoginComponent {
             (response) => {
               this.identity = response;
 
-              console.log(this.token);
-              console.log(this.identity);
+              // console.log(this.token);
+              // console.log(this.identity);
+
+              login.reset();
 
               /*
               persistir datos del usuario 
               (en el localstorage)*/
               localStorage.setItem('token', this.token);
               localStorage.setItem('identity', JSON.stringify(this.identity));
+
+              // redireccion a inicio.
+              this._router.navigate(['/inicio']);
             },
             (error) => {
               this.status = 'error';
@@ -59,5 +71,20 @@ export class LoginComponent {
         console.log(<any>error);
       }
     );
+  }
+
+  logout() {
+    this._route.params.subscribe((params) => {
+      let logout = +params['sure'];
+      if (logout == 1) {
+        localStorage.removeItem('identity');
+        localStorage.removeItem('token');
+        this.identity = null;
+        this.token = null;
+
+        // redireccion a inicio.
+        this._router.navigate(['/inicio']);
+      }
+    });
   }
 }
