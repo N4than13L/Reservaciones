@@ -2,6 +2,15 @@
   <h2>{{ page_title }}</h2>
   <p>registrate para guardar las reservaciones!</p>
 
+  <div class="alert alert-success" *ngIf="status == 'success'">
+    Usuario registrado con exito
+    <a [routerLink]="['/login']">ya puedes iniciar session aquí</a>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="status == 'error'">
+    Usuario no registrado
+  </div>
+
   <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
     <div class="mb-3">
       <label for="name" class="form-label">Nombre</label>

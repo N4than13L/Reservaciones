@@ -10,23 +10,27 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class RegisterComponent {
   public page_title: string;
+  public status: string;
   public user: User;
 
   constructor(private _userService: UserService) {
     this.page_title = 'Registrate';
+    this.status = '';
     this.user = new User(1, '', '', 'ROLE_USER', '', '', '', '');
   }
 
-  ngOnInit() {
-    console.log('registro de usuario');
-    console.log(this._userService.test());
-  }
+  ngOnInit() {}
 
   onSubmit(form: any) {
     this._userService.register(this.user).subscribe(
       (response) => {
-        console.log(response);
-        form.reset();
+        if (response.status == 'success') {
+          this.status = response.status;
+          console.log(response);
+          form.reset();
+        } else {
+          this.status = 'error';
+        }
       },
       (error) => {
         console.log(<any>error);
