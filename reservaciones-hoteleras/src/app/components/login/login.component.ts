@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  public page_title: string;
+
+  constructor(){
+    this.page_title = "Identificate"
+  }
 
 }
