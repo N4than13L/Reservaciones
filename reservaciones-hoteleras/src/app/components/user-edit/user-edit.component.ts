@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/service/user.service';
+import { Global } from 'src/app/service/global';
 
 @Component({
   selector: 'app-user-edit',
@@ -14,7 +15,23 @@ export class UserEditComponent {
   public page_title: string;
   public identity: any;
   public token: any;
+  public resetVar: boolean = true;
 
+  public afuConfig = <any>{
+    multiple: false,
+    formatsAllowed: '.jpg,.png,.jpeg,.gif',
+    maxSize: '40',
+    uploadAPI: {
+      url: Global.url + 'user/upload',
+      method: 'POST',
+      headers: {
+        Authorization: this._userService.getToken(),
+      },
+    },
+    theme: 'attachPin',
+    hideProgressBar: true,
+    hideResetBtn: true,
+  };
   constructor(private _userService: UserService) {
     this.status = '';
     this.page_title = 'Ajustes de usuario';
@@ -42,7 +59,7 @@ export class UserEditComponent {
     this._userService.update(this.token, this.user).subscribe(
       (response) => {
         if (response && response.status) {
-          console.log(response);
+          // console.log(response);
           this.status = 'success';
 
           if (response.changes.name) {
@@ -73,5 +90,11 @@ export class UserEditComponent {
         console.log(<any>error);
       }
     );
+  }
+
+  avatarUpload(datos: any) {
+    // console.log(JSON.parse(datos.response));
+    let data = JSON.parse(datos.response);
+    this.user.image = data.image;
   }
 }

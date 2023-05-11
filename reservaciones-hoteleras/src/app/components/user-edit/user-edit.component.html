@@ -64,17 +64,15 @@
       ></textarea>
     </div> -->
 
-    <div class="mb-3 mt-3">
+    <!-- <div class="mb-3 mt-3">
       <label for="image" class="form-label">image</label>
-      <input
-        type="file"
-        name="image"
-        class="form-control"
-        #email="ngModel"
-        [(ngModel)]="user.image"
-        class="form-control"
-      />
-    </div>
+      <angular-file-uploader
+        [config]="afuConfig"
+        [resetUpload]="resetVar"
+        (ApiResponse)="avatarUpload($event)"
+      >
+      </angular-file-uploader>
+    </div> -->
 
     <input
       value="Registrar"

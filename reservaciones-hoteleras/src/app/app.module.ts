@@ -5,6 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 
+// archivos
+import { AngularFileUploaderModule } from 'angular-file-uploader';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -22,7 +25,13 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
     ErrorComponent,
     UserEditComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    AngularFileUploaderModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
