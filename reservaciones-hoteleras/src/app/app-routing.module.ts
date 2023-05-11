@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { ErrorComponent } from './components/error/error.component';
 
 // rutas.
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout/:sure', component: LoginComponent },
   { path: 'registro', component: RegisterComponent },
+  { path: 'ajustes', component: UserEditComponent },
   { path: '*', component: ErrorComponent },
 ];
 

@@ -48,13 +48,14 @@
             {{ identity.name + " " + identity.surname }}
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">crear reserva</a></li>
-            <li><a class="dropdown-item" href="#">crear tipo de reserva</a></li>
-            <li><a class="dropdown-item" href="#">perfil</a></li>
-            <li><a class="dropdown-item" href="#">ajustes</a></li>
+            <li><a class="dropdown-item" href="#">Crear reservacion</a></li>
+            <li><a class="dropdown-item" href="#">Crear tipo de reserva</a></li>
+            <li>
+              <a class="dropdown-item" [routerLink]="['/ajustes']">Ajustes</a>
+            </li>
             <li>
               <a class="dropdown-item" [routerLink]="['/logout/1']"
-                >cerrar cesion</a
+                >Cerrar cesion</a
               >
             </li>
           </ul>

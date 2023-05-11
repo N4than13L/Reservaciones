@@ -1,0 +1,86 @@
+<div class="container mt-3">
+  <h2>{{ page_title }}</h2>
+  <hr />
+  <div class="alert alert-success" *ngIf="status == 'success'">
+    Usuario actualizado con exito
+  </div>
+
+  <form #editForm="ngForm" (ngSubmit)="onSubmit(editForm)">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nombre</label>
+      <input
+        type="text"
+        name="name"
+        #name="ngModel"
+        [(ngModel)]="user.name"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="surname" class="form-label">Apellido</label>
+      <input
+        type="text"
+        name="surname"
+        class="form-control"
+        #surname="ngModel"
+        [(ngModel)]="user.surname"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        name="email"
+        class="form-control"
+        #email="ngModel"
+        [(ngModel)]="user.email"
+        class="form-control"
+        required
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+      />
+      <small
+        class="invalid-feedback d-block"
+        *ngIf="!email.valid && email.touched"
+      >
+        El correo es reqierido o está mal escrito</small
+      >
+    </div>
+
+    <!-- <div class="mb-3">
+      <label for="description" class="form-label">Biografia</label>
+
+      <textarea
+        class="form-control"
+        name="description"
+        class="form-control"
+        #description="ngModel"
+        [(ngModel)]="user.description"
+        rows="3"
+      ></textarea>
+    </div> -->
+
+    <div class="mb-3 mt-3">
+      <label for="image" class="form-label">image</label>
+      <input
+        type="file"
+        name="image"
+        class="form-control"
+        #email="ngModel"
+        [(ngModel)]="user.image"
+        class="form-control"
+      />
+    </div>
+
+    <input
+      value="Registrar"
+      type="submit"
+      class="btn btn-success"
+      [disabled]="editForm.invalid"
+    />
+  </form>
+</div>
