@@ -1,0 +1,121 @@
+<div class="container mt-3 mb-3">
+  <h2>{{ page_title }}</h2>
+  <p>registrate para guardar las reservaciones!</p>
+
+  <div class="alert alert-success" *ngIf="status == 'success'">
+    reserva guardada correctamente
+  </div>
+
+  <div class="alert alert-danger" *ngIf="status == 'error'">
+    reserva no guardada
+  </div>
+
+  <form #reservacionForm="ngForm" (ngSubmit)="onSubmit(reservacionForm)">
+    <div class="mb-3">
+      <!-- nombre -->
+      <label for="name" class="form-label">Nombre</label>
+      <input
+        type="text"
+        name="name"
+        #name="ngModel"
+        [(ngModel)]="booking.name"
+        class="form-control"
+        required
+        pattern="[a-zA-Z]+"
+      />
+      <small
+        class="invalid-feedback d-block"
+        *ngIf="!name.valid && name.touched"
+      >
+        El nombre de usuario es reqierido</small
+      >
+    </div>
+
+    <!-- apellido -->
+    <div class="mb-3">
+      <label for="surname" class="form-label">Apellido</label>
+      <input
+        type="text"
+        name="surname"
+        class="form-control"
+        #surname="ngModel"
+        [(ngModel)]="booking.surname"
+        class="form-control"
+        required
+        pattern="[a-zA-Z]+"
+      />
+      <small
+        class="invalid-feedback d-block"
+        *ngIf="!surname.valid && surname.touched"
+      >
+        El apellido es reqierido</small
+      >
+    </div>
+
+    <!-- bio -->
+    <div class="mb-3">
+      <label for="bio" class="form-label">bio</label>
+      <textarea
+        name="bio"
+        class="form-control"
+        #bio="ngModel"
+        [(ngModel)]="booking.bio"
+        class="form-control"
+        cols="30"
+        rows="10"
+      ></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="age" class="form-label">Edad</label>
+      <input
+        type="number"
+        name="age"
+        class="form-control"
+        #age="ngModel"
+        [(ngModel)]="booking.age"
+        class="form-control"
+        required
+      />
+      <small class="invalid-feedback d-block" *ngIf="!age.valid && age.touched">
+        La edad es requerida</small
+      >
+    </div>
+
+    <div class="mb-3">
+      <label for="nationality" class="form-label">Nacionalidad</label>
+      <input
+        type="text"
+        name="surname"
+        class="form-control"
+        #nationality="ngModel"
+        [(ngModel)]="booking.nationality"
+        class="form-control"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="booking_type_id" class="form-label"
+        >Tipo de reservacion</label
+      >
+
+      <select
+        name="booking_type_id"
+        #booking_type_id="ngModel"
+        [(ngModel)]="booking.booking_type_id"
+        class="form-control"
+      >
+        <option *ngFor="let booking of bookings" value="{{ booking.id }}">
+          {{ booking.name }}
+        </option>
+      </select>
+    </div>
+
+    <input
+      value="Registrar"
+      type="submit"
+      class="btn btn-success"
+      [disabled]="reservacionForm.invalid"
+    />
+  </form>
+</div>

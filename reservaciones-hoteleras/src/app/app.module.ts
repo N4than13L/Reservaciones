@@ -16,6 +16,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { BookingtypeComponent } from './components/bookingtype/bookingtype.component';
+import { BookingComponent } from './components/booking/booking.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { BookingtypeComponent } from './components/bookingtype/bookingtype.compo
     ErrorComponent,
     UserEditComponent,
     BookingtypeComponent,
+    BookingComponent,
   ],
   imports: [
     BrowserModule,

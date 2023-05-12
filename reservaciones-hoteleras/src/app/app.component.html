@@ -48,7 +48,11 @@
             {{ identity.name + " " + identity.surname }}
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Crear reservacion</a></li>
+            <li>
+              <a class="dropdown-item" [routerLink]="['/crear-reservacion']"
+                >Crear reservacion</a
+              >
+            </li>
             <li>
               <a class="dropdown-item" [routerLink]="['/crear-tipo-reserva']"
                 >tipo de reserva</a
