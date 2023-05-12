@@ -1,0 +1,48 @@
+<div class="container mt-3">
+  <h2>{{ page_title }}</h2>
+  <p>Guarda los tipo de reservaciones!</p>
+
+  <div class="alert alert-success" *ngIf="status == 'success'">
+    Tipo de reserva registrada con exito
+  </div>
+
+  <div class="alert alert-danger" *ngIf="status == 'error'">
+    Error al agregar el tipo de reservas
+  </div>
+
+  <form #bookingtypeForm="ngForm" (ngSubmit)="onSubmit(bookingtypeForm)">
+    <div class="mb-3">
+      <label for="name" class="form-label">crear tipo de reserva</label>
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        #name="ngModel"
+        [(ngModel)]="bookingtype.name"
+        class="form-control"
+        required
+      />
+      <small
+        class="invalid-feedback d-block"
+        *ngIf="!name.valid && name.touched"
+      >
+        el campo no puede estar vacio</small
+      >
+    </div>
+    <input
+      value="Guardar"
+      type="submit"
+      class="btn btn-success"
+      [disabled]="bookingtypeForm.invalid"
+    />
+  </form>
+
+  <h2>Reservacviones</h2>
+  <section class="border border-2" *ngFor="let item of booking_types">
+    <ol>
+      <p>
+        {{ item.name }}
+      </p>
+    </ol>
+  </section>
+</div>

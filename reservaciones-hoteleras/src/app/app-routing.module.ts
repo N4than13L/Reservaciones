@@ -8,6 +8,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { ErrorComponent } from './components/error/error.component';
+import { BookingtypeComponent } from './components/bookingtype/bookingtype.component';
 
 // rutas.
 const appRoutes: Routes = [
@@ -16,6 +17,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout/:sure', component: LoginComponent },
   { path: 'registro', component: RegisterComponent },
+  { path: 'crear-tipo-reserva', component: BookingtypeComponent },
   { path: 'ajustes', component: UserEditComponent },
   { path: '*', component: ErrorComponent },
 ];
