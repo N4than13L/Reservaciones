@@ -3,10 +3,7 @@
   <div>Bienvenido</div>
   <h2>{{ page_title }}</h2>
 
-  <div
-    class="card-columns"
-    *ngIf="identity && identity.sub == bookings.user_id"
-  >
+  <div class="card-columns" *ngIf="identity && identity.sub">
     <article class="card w-100" *ngFor="let reservations of bookings">
       <div class="card-header">
         <a class="text-dark stretched-link" [routerLink]="['/inicio']">{{
