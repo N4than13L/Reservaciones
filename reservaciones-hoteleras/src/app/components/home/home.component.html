@@ -1,3 +1,28 @@
 <div class="container">
+  <!-- div generico para mostrar  -->
+  <div>Bienvenido</div>
   <h2>{{ page_title }}</h2>
+
+  <div
+    class="card-columns"
+    *ngIf="identity && identity.sub == bookings.user_id"
+  >
+    <article class="card w-100" *ngFor="let reservations of bookings">
+      <div class="card-header">
+        <a class="text-dark stretched-link" [routerLink]="['/inicio']">{{
+          reservations.name
+        }}</a>
+
+        <p>{{ reservations.surname }}</p>
+
+        <div class="mt-3">
+          <a class="btn btn-success m-1">ver</a>
+          <span>
+            <a class="btn btn-warning m-1">editar</a>
+            <a class="btn btn-danger m-1">eliminar</a>
+          </span>
+        </div>
+      </div>
+    </article>
+  </div>
 </div>

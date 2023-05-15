@@ -27,4 +27,13 @@ export class BookingService {
 
     return this._http.post(this.url + 'booking', params, { headers: headers });
   }
+
+  getBookings(): Observable<any> {
+    let headers = new HttpHeaders().set(
+      'Content-Type',
+      'application/x-www-form-urlencoded'
+    );
+
+    return this._http.get(this.url + 'booking', { headers: headers });
+  }
 }
