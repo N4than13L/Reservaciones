@@ -44,7 +44,7 @@ export class BookingComponent {
         if (response.status == 'success') {
           this.booking = response.booking;
           this.status = 'success';
-          // this._router.navigate(['/inicio']);
+          this._router.navigate(['/incio']);
         } else {
           this.status = 'error';
         }

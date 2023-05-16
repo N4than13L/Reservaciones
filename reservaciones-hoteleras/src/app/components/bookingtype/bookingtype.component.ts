@@ -37,7 +37,7 @@ export class BookingtypeComponent {
         if (response.status == 'success') {
           this.bookingtype = response.booking_type;
           this.status = 'success';
-          this._router.navigate(['/inicio']);
+          this._router.navigate(['/crear-tipo-reserva']);
         } else {
           this.status = 'error';
         }
