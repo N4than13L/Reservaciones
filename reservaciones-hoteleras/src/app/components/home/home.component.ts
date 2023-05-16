@@ -14,7 +14,7 @@ export class HomeComponent {
   public page_title: string;
   public url: string;
   public status: string = '';
-  public bookings: Array<Booking>;
+  public bookings: Array<Booking> | any;
   public identity: any;
   public token: any;
 
@@ -24,7 +24,7 @@ export class HomeComponent {
   ) {
     this.page_title = 'Inicio';
     this.url = Global.url;
-    this.bookings = [];
+    // this.bookings = [];
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
   }

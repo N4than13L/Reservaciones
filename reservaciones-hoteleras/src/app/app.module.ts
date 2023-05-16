@@ -17,6 +17,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { BookingtypeComponent } from './components/bookingtype/bookingtype.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { BookingEditComponent } from './components/booking-edit/booking-edit.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { BookingComponent } from './components/booking/booking.component';
     UserEditComponent,
     BookingtypeComponent,
     BookingComponent,
+    BookingEditComponent,
   ],
   imports: [
     BrowserModule,

@@ -36,4 +36,16 @@ export class BookingService {
 
     return this._http.get(this.url + 'booking', { headers: headers });
   }
+
+  update(token: any, booking: any, id: any): Observable<any> {
+    let json = JSON.stringify(booking);
+    let params = 'json=' + json;
+
+    let headers = new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Authorization', token);
+    return this._http.put(this.url + 'booking/' + id, params, {
+      headers: headers,
+    });
+  }
 }

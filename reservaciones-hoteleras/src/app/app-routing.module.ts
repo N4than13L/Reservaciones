@@ -10,6 +10,7 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { ErrorComponent } from './components/error/error.component';
 import { BookingtypeComponent } from './components/bookingtype/bookingtype.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { BookingEditComponent } from './components/booking-edit/booking-edit.component';
 
 // rutas.
 const appRoutes: Routes = [
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
   { path: 'registro', component: RegisterComponent },
   { path: 'crear-tipo-reserva', component: BookingtypeComponent },
   { path: 'crear-reservacion', component: BookingComponent },
+  { path: 'editar-reservacion/:id', component: BookingEditComponent },
   { path: 'ajustes', component: UserEditComponent },
   { path: '*', component: ErrorComponent },
 ];
