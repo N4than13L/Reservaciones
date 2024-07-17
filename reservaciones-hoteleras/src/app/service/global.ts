@@ -1,3 +1,3 @@
 export var Global = {
-  url: 'http://localhost/reservaciones/api-rest-reservas/public/api/',
+  url: 'http://localhost/Reservaciones/api-rest-reservas/public/api/',
 };
